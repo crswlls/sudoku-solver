@@ -2,115 +2,21 @@
 <html>
 <head>
 <link rel="stylesheet" href="c/main.css">
-</head>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
 <body>
 <h1>Sudoku Solver</h1>
 <div>A coding exercise in AngularJS</div>
-<div ng-app="" ng-init="gridValues=[[0,1,0,2,0,0,0,0,5],
-[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5],
-[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5],[0,1,0,2,0,0,0,0,5]]">
+<div data-ng-app="solverApp" data-ng-controller="mainController">
   <table>
-  <tr>
-    <td>{{ gridValues[0][0] }}</td>
-    <td>{{ gridValues[0][1] }}</td>
-    <td class="blockRhs">{{ gridValues[0][2] }}</td>
-    <td>{{ gridValues[0][3] }}</td>
-    <td>{{ gridValues[0][4] }}</td>
-    <td class="blockRhs">{{ gridValues[0][5] }}</td>
-    <td>{{ gridValues[0][6] }}</td>
-    <td>{{ gridValues[0][7] }}</td>
-    <td>{{ gridValues[0][8] }}</td>
-  </tr>
-  <tr>
-    <td>{{ gridValues[1][0] }}</td>
-    <td>{{ gridValues[1][1] }}</td>
-    <td class="blockRhs">{{ gridValues[1][2] }}</td>
-    <td>{{ gridValues[1][3] }}</td>
-    <td>{{ gridValues[1][4] }}</td>
-    <td class="blockRhs">{{ gridValues[1][5] }}</td>
-    <td>{{ gridValues[1][6] }}</td>
-    <td>{{ gridValues[1][7] }}</td>
-    <td>{{ gridValues[1][8] }}</td>
-  </tr>
-  <tr>
-    <td class="blockBottom">{{ gridValues[2][0] }}</td>
-    <td class="blockBottom">{{ gridValues[2][1] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[2][2] }}</td>
-    <td class="blockBottom">{{ gridValues[2][3] }}</td>
-    <td class="blockBottom">{{ gridValues[2][4] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[2][5] }}</td>
-    <td class="blockBottom">{{ gridValues[2][6] }}</td>
-    <td class="blockBottom">{{ gridValues[2][7] }}</td>
-    <td class="blockBottom">{{ gridValues[2][8] }}</td>
-  </tr>
-  <tr>
-    <td>{{ gridValues[3][0] }}</td>
-    <td>{{ gridValues[3][1] }}</td>
-    <td class="blockRhs">{{ gridValues[3][2] }}</td>
-    <td>{{ gridValues[3][3] }}</td>
-    <td>{{ gridValues[3][4] }}</td>
-    <td class="blockRhs">{{ gridValues[3][5] }}</td>
-    <td>{{ gridValues[3][6] }}</td>
-    <td>{{ gridValues[3][7] }}</td>
-    <td>{{ gridValues[3][8] }}</td>
-  </tr>
-  <tr>
-    <td>{{ gridValues[4][0] }}</td>
-    <td>{{ gridValues[4][1] }}</td>
-    <td class="blockRhs">{{ gridValues[4][2] }}</td>
-    <td>{{ gridValues[4][3] }}</td>
-    <td>{{ gridValues[4][4] }}</td>
-    <td class="blockRhs">{{ gridValues[4][5] }}</td>
-    <td>{{ gridValues[4][6] }}</td>
-    <td>{{ gridValues[4][7] }}</td>
-    <td>{{ gridValues[4][8] }}</td>
-  </tr>
-  <tr>
-    <td class="blockBottom">{{ gridValues[5][0] }}</td>
-    <td class="blockBottom">{{ gridValues[5][1] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[5][2] }}</td>
-    <td class="blockBottom">{{ gridValues[5][3] }}</td>
-    <td class="blockBottom">{{ gridValues[5][4] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[5][5] }}</td>
-    <td class="blockBottom">{{ gridValues[5][6] }}</td>
-    <td class="blockBottom">{{ gridValues[5][7] }}</td>
-    <td class="blockBottom">{{ gridValues[5][8] }}</td>
-  </tr>
-  <tr>
-    <td>{{ gridValues[6][0] }}</td>
-    <td>{{ gridValues[6][1] }}</td>
-    <td class="blockRhs">{{ gridValues[5][2] }}</td>
-    <td>{{ gridValues[6][3] }}</td>
-    <td>{{ gridValues[6][4] }}</td>
-    <td class="blockRhs">{{ gridValues[5][5] }}</td>
-    <td>{{ gridValues[6][6] }}</td>
-    <td>{{ gridValues[6][7] }}</td>
-    <td>{{ gridValues[6][8] }}</td>
-  </tr>
-  <tr>
-    <td>{{ gridValues[7][0] }}</td>
-    <td>{{ gridValues[7][1] }}</td>
-    <td class="blockRhs">{{ gridValues[7][2] }}</td>
-    <td>{{ gridValues[7][3] }}</td>
-    <td>{{ gridValues[7][4] }}</td>
-    <td class="blockRhs">{{ gridValues[7][5] }}</td>
-    <td>{{ gridValues[7][6] }}</td>
-    <td>{{ gridValues[7][7] }}</td>
-    <td>{{ gridValues[7][8] }}</td>
-  </tr>
-  <tr>
-    <td class="blockBottom">{{ gridValues[8][0] }}</td>
-    <td class="blockBottom">{{ gridValues[8][1] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[8][2] }}</td>
-    <td class="blockBottom">{{ gridValues[8][3] }}</td>
-    <td class="blockBottom">{{ gridValues[8][4] }}</td>
-    <td class="blockBottomRhs">{{ gridValues[8][5] }}</td>
-    <td class="blockBottom">{{ gridValues[8][6] }}</td>
-    <td class="blockBottom">{{ gridValues[8][7] }}</td>
-    <td class="blockBottom">{{ gridValues[8][8] }}</td>
+  <tr data-ng-repeat="x in gridValues">
+    <td data-ng-repeat="y in x track by $index">
+      {{ y }}
+    </td>
   </tr>
 </table>
 </div>
+<script src="solverApp.js"></script>
+<script src="mainController.js"></script>
 </body>
 </html>
