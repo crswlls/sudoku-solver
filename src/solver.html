@@ -11,7 +11,7 @@
   <table>
   <tr data-ng-repeat="x in gridValues">
     <td data-ng-repeat="y in x track by $index">
-      {{ y }}
+      <div data-ng-bind="y" ng-click="y = y + 1"></div>
     </td>
   </tr>
 </table>
