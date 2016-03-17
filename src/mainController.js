@@ -22,14 +22,12 @@ app.controller('mainController', function($scope) {
           var checkVal = $scope.gridValues[i][y];
           if (checkVal > 0)
           {
-            ////alert("RESETTING:" + i + "," + y + "," + checkVal);
             $scope.possibles[x][y][checkVal-1] = 0;
             $scope.log4 = $scope.possibles[x][y];
           }
           checkVal = $scope.gridValues[x][i];
           if (checkVal > 0)
           {
-            ////alert("RESETTING:" + x + "," + i + "," + checkVal);
             $scope.possibles[x][y][checkVal-1] = 0;
             $scope.log4 = $scope.possibles[x][y];
           }
@@ -49,11 +47,19 @@ app.controller('mainController', function($scope) {
       if (numberNonZeroElements == 1)
       {
         $scope.gridValues[x][y] = lastNonZeroElement;
+        return true;
       }
+      else if (numberNonZeroElements == 0)
+      {
+        $scope.log1 = "ERROR";
+      }
+
+      return false;
     }
 
     $scope.solve = function() {
         $scope.log1 = "Solving...";
+        var changed = false;
        for (var i = 0; i < 9; i++)
         {
             $scope.log2 = i;
@@ -62,10 +68,22 @@ app.controller('mainController', function($scope) {
                $scope.log3 = j;
                  if ($scope.gridValues[i][j] == 0)
                  {
-                   $scope.scanAndUpdate(i,j);
+                   if ($scope.scanAndUpdate(i,j))
+                   {
+                     changed = true;
+                   }
                  }
              }
          }
          $scope.log1 = "Solved";
+
+         return changed;
+    }
+
+    $scope.solveAll = function()
+    {
+      while ($scope.solve())
+      {
+      }
     }
 });
