@@ -19,6 +19,12 @@
 <div data-ng-bind="log1"></div>
 <div data-ng-bind="log2"></div>
 <div data-ng-bind="log3"></div>
+<div data-ng-bind="log4"></div>
+<div data-ng-repeat="x in possibles">
+  <div data-ng-repeat="y in x track by $index">
+    <div data-ng-bind="y"></div>
+  </div>
+</div>
 </div>
 <script src="solverApp.js"></script>
 <script src="mainController.js"></script>
